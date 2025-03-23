@@ -3,7 +3,7 @@
     public class Konto
     {
         private string klient;
-        protected decimal bilans; // Изменено на protected
+        protected decimal bilans;
         private bool zablokowane = false;
 
         public Konto(string klient, decimal bilansNaStart = 0)
@@ -27,6 +27,22 @@
                 throw new Exception("Kwota musi być dodatnia");
             }
             bilans += kwota;
+        }
+        public void Wyplata(decimal kwota)
+        {
+            if (zablokowane)
+            {
+                throw new Exception("Konto zablokowane");
+            }
+            if (kwota <= 0)
+            {
+                throw new Exception("Kwota musi być dodatnia");
+            }
+            if (bilans < kwota)
+            {
+                throw new Exception("Brak środków na koncie");
+            }
+            bilans -= kwota;
         }
 
         public void BlokujKonto()
