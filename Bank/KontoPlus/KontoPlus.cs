@@ -36,9 +36,9 @@ namespace KontoPlus
                 throw new Exception("Kwota przekracza dostępne środki i limit debetowy");
             }
 
-            bilans -= kwota;
+            base.Wyplata(kwota);
 
-            if (bilans < 0)
+            if (base.Bilans < 0)
             {
                 debetWykorzystany = true;
                 BlokujKonto();
@@ -47,9 +47,18 @@ namespace KontoPlus
 
         public new void Wplata(decimal kwota)
         {
+            if (Zablokowane)
+            {
+                throw new Exception("Konto zablokowane");
+            }
+            if (kwota <= 0)
+            {
+                throw new Exception("Kwota musi być dodatnia");
+            }
+
             base.Wplata(kwota);
 
-            if (Bilans > 0 && Zablokowane)
+            if (base.Bilans > 0 && Zablokowane)
             {
                 OdblokujKonto();
                 debetWykorzystany = false;

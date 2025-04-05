@@ -1,4 +1,5 @@
-using Bank;
+﻿using Bank;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BankTest
 {
@@ -22,7 +23,7 @@ namespace BankTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Kwota musi byc dodatnia")]
+        [ExpectedException(typeof(Exception), "Kwota musi być dodatnia")]
         public void TestWplataNegativeAmount()
         {
             var konto = new KontoLimit("John John", 100, 50);
@@ -30,7 +31,7 @@ namespace BankTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Kwota musi byc dodatnia")]
+        [ExpectedException(typeof(Exception), "Kwota musi być dodatnia")]
         public void TestWyplataNegativeAmount()
         {
             var konto = new KontoLimit("John John", 100, 50);
@@ -42,8 +43,8 @@ namespace BankTest
         public void TestWplataOnBlockedAccount()
         {
             var konto = new KontoLimit("John John", 100, 50);
-            konto.Wyplata(150);
-            konto.Wplata(50);
+            konto.Wyplata(150); // Uzywamy debet i blokujemy konto
+            konto.Wplata(50); // Proba wplaty na zablokowane konto
         }
 
         [TestMethod]
@@ -51,25 +52,25 @@ namespace BankTest
         public void TestWyplataOnBlockedAccount()
         {
             var konto = new KontoLimit("John John", 100, 50);
-            konto.Wyplata(150);
-            konto.Wyplata(50);
+            konto.Wyplata(150); // Uzywamy debet i blokujemy konto
+            konto.Wyplata(50); // Proba wyplaty z zablokowanego konta
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Kwota przekracza dostepne srodki i limit debetowy")]
+        [ExpectedException(typeof(Exception), "Kwota przekracza dostępne środki i limit debetowy")]
         public void TestWyplataInsufficientFunds()
         {
             var konto = new KontoLimit("John John", 100, 50);
-            konto.Wyplata(200);
+            konto.Wyplata(200); // Przekraczamy dostepne srodki i limit debetowy
         }
 
         [TestMethod]
         public void TestKontoLimitOdblokowaniePoWplacie()
         {
             var konto = new KontoLimit("John John", 100, 50);
-            konto.Wyplata(150);
+            konto.Wyplata(150); // Uzywamy debet i blokujemy konto
             Assert.IsTrue(konto.Zablokowane);
-            konto.Wplata(60);
+            konto.Wplata(60); // Wplata srodkow, aby odblokowac konto
             Assert.IsFalse(konto.Zablokowane);
             Assert.AreEqual(10, konto.Bilans);
         }

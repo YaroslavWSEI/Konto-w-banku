@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace Bank
+﻿namespace Bank
 {
     public class KontoLimit
     {
@@ -26,6 +24,15 @@ namespace Bank
 
         public void Wplata(decimal kwota)
         {
+            if (konto.Zablokowane)
+            {
+                throw new Exception("Konto zablokowane");
+            }
+            if (kwota <= 0)
+            {
+                throw new Exception("Kwota musi być dodatnia");
+            }
+
             konto.Wplata(kwota);
 
             if (konto.Bilans > 0 && konto.Zablokowane)
