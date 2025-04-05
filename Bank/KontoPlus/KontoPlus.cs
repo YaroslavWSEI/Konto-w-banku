@@ -1,24 +1,29 @@
-﻿namespace Bank
+﻿using Bank;
+
+namespace KontoPlus
 {
-    public class Konto
+    public class KontoPlus : Konto
     {
-        private string klient;
-        protected decimal bilans;
-        private bool zablokowane = false;
+        private decimal jednorazowyLimitDebetowy;
+        private bool debetWykorzystany = false;
 
-        public Konto(string klient, decimal bilansNaStart = 0)
+        public KontoPlus(string klient, decimal bilansNaStart = 0, decimal limitDebetowy = 0)
+            : base(klient, bilansNaStart)
         {
-            this.klient = klient;
-            this.bilans = bilansNaStart;
+            jednorazowyLimitDebetowy = limitDebetowy;
         }
 
-        public string Nazwa => klient;
-        public decimal Bilans => bilans;
-        public bool Zablokowane => zablokowane;
-
-        public void Wplata(decimal kwota)
+        public decimal JednorazowyLimitDebetowy
         {
-            if (zablokowane)
+            get => jednorazowyLimitDebetowy;
+            set => jednorazowyLimitDebetowy = value;
+        }
+
+        public new decimal Bilans => base.Bilans + (debetWykorzystany ? 0 : jednorazowyLimitDebetowy);
+
+        public new void Wyplata(decimal kwota)
+        {
+            if (Zablokowane)
             {
                 throw new Exception("Konto zablokowane");
             }
@@ -26,33 +31,29 @@
             {
                 throw new Exception("Kwota musi być dodatnia");
             }
-            bilans += kwota;
-        }
-        public void Wyplata(decimal kwota)
-        {
-            if (zablokowane)
+            if (kwota > Bilans)
             {
-                throw new Exception("Konto zablokowane");
+                throw new Exception("Kwota przekracza dostępne środki i limit debetowy");
             }
-            if (kwota <= 0)
-            {
-                throw new Exception("Kwota musi być dodatnia");
-            }
-            if (bilans < kwota)
-            {
-                throw new Exception("Brak środków na koncie");
-            }
+
             bilans -= kwota;
+
+            if (bilans < 0)
+            {
+                debetWykorzystany = true;
+                BlokujKonto();
+            }
         }
 
-        public void BlokujKonto()
+        public new void Wplata(decimal kwota)
         {
-            zablokowane = true;
-        }
+            base.Wplata(kwota);
 
-        public void OdblokujKonto()
-        {
-            zablokowane = false;
+            if (Bilans > 0 && Zablokowane)
+            {
+                OdblokujKonto();
+                debetWykorzystany = false;
+            }
         }
     }
 }

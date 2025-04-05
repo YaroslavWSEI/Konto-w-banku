@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bank\Bank.csproj" />
+    <ProjectReference Include="..\KontoLimit\KontoLimit.csproj" />
+    <ProjectReference Include="..\KontoPlus\KontoPlus.csproj" />
   </ItemGroup>
 
   <ItemGroup>

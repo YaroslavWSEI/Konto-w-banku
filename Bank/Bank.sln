@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KontoPlus", "KontoPlus\Kont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankTest", "BankTest\BankTest.csproj", "{C091C556-911A-45CC-B80E-AE78231E914D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KontoLimit", "KontoLimit\KontoLimit.csproj", "{CC9F9379-0579-495A-8C8E-684AA737BBD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppBank", "ConsoleAppBank\ConsoleAppBank.csproj", "{02821565-8C74-4A9B-AB56-46AD45069802}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{C091C556-911A-45CC-B80E-AE78231E914D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C091C556-911A-45CC-B80E-AE78231E914D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C091C556-911A-45CC-B80E-AE78231E914D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC9F9379-0579-495A-8C8E-684AA737BBD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC9F9379-0579-495A-8C8E-684AA737BBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC9F9379-0579-495A-8C8E-684AA737BBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC9F9379-0579-495A-8C8E-684AA737BBD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02821565-8C74-4A9B-AB56-46AD45069802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02821565-8C74-4A9B-AB56-46AD45069802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02821565-8C74-4A9B-AB56-46AD45069802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02821565-8C74-4A9B-AB56-46AD45069802}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
